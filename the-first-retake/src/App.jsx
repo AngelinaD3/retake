@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import ShapesLine from './components/ShapesLine'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +25,13 @@ function App() {
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
+        
+        {/* Добавленные компоненты ShapesLine */}
+        <div style={{ marginTop: '2rem' }}>
+          <h2>Shapes Demo</h2>
+          <ShapesLine /> {/* Горизонтальный */}
+          <ShapesLine isVertical /> {/* Вертикальный */}
+        </div>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
