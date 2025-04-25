@@ -6,6 +6,7 @@ import ShapesLine from './components/ShapesLine'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [isVertical, setIsVertical] = useState(false);
 
   return (
     <>
