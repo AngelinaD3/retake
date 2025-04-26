@@ -3,8 +3,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import ShapesLine from './components/ShapesLine'
-import { ShapesLineProvider } from './context/ShapesLineContext'
+import ShapesLine from './components/ShapesLine/ShapesLine.jsx';
+import Header from './components/Header/Header.jsx';
+import { ShapesLineProvider } from './context/ShapesLineContext.jsx'
 
 function Home() {
   const [count, setCount] = useState(0)
