@@ -1,12 +1,12 @@
 import { useState } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ShapesLine from './components/ShapesLine'
 
-function App() {
+function Home() {
   const [count, setCount] = useState(0)
-  const [isVertical, setIsVertical] = useState(false);
 
   return (
     <>
@@ -23,21 +23,29 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        
-        {/* Добавленные компоненты ShapesLine */}
+        <p>Edit <code>src/App.jsx</code> and save to test HMR</p>
         <div style={{ marginTop: '2rem' }}>
           <h2>Shapes Demo</h2>
-          <ShapesLine /> {/* Горизонтальный */}
-          <ShapesLine isVertical /> {/* Вертикальный */}
+          <ShapesLine />
+          <ShapesLine isVertical />
         </div>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </>
+  )
+}
+
+const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  { path: "/horizontal", element: <ShapesLine /> },
+  { path: "/vertical", element: <ShapesLine isVertical /> },
+])
+
+function App() {
+  return (
+    <RouterProvider router={router} />
   )
 }
 
