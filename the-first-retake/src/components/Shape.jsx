@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion'; 
 import './Shape.css'; 
 
 const Shape = ({ 
@@ -19,12 +20,14 @@ const Shape = ({
   };
 
   return (
-    <div 
+    <motion.div 
       className="shape"
       style={shapeStyle}
       onClick={onClick}
       role="button"
       aria-label={`${tfrColor} ${tfrType}`}
+      animate={{ scale: [1, 1.2, 1] }}
+      transition={{ duration: 0.5 }}
     />
   );
 };
