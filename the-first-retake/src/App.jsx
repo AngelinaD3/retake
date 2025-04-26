@@ -1,15 +1,13 @@
 import { useState } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ShapesLine from './components/ShapesLine/ShapesLine.jsx';
-import Header from './components/Header/Header.jsx';
 import { ShapesLineProvider } from './context/ShapesLineContext.jsx'
 
-function Home() {
+function HomePage() {
   const [count, setCount] = useState(0)
-
   return (
     <>
       <div>
@@ -39,18 +37,31 @@ function Home() {
   )
 }
 
-const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/horizontal", element: <ShapesLine /> },
-  { path: "/vertical", element: <ShapesLine isVertical /> },
-])
+// Simple error page component
+function ErrorPage() {
+  return (
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1>404</h1>
+      <h2>Page Not Found</h2>
+      <p>The page you are looking for does not exist.</p>
+      <a href="/">Go back to home</a>
+    </div>
+  );
+}
 
 function App() {
   return (
     <ShapesLineProvider>
-      <RouterProvider router={router} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/horizontal" element={<ShapesLine />} />
+          <Route path="/vertical" element={<ShapesLine isVertical />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Router>
     </ShapesLineProvider>
   )
 }
 
-export default App
+export default App;
