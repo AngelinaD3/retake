@@ -4,6 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ShapesLine from './components/ShapesLine'
+import { ShapesLineProvider } from './context/ShapesLineContext'
 
 function Home() {
   const [count, setCount] = useState(0)
@@ -45,7 +46,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <ShapesLineProvider>
+      <RouterProvider router={router} />
+    </ShapesLineProvider>
   )
 }
 
