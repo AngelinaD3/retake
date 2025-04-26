@@ -1,0 +1,7 @@
+{
+    "shapes": [
+      { "id": 1, "color": "red", "type": "circle", "clicks": 0 },
+      { "id": 2, "color": "blue", "type": "circle", "clicks": 0 },
+      { "id": 3, "color": "green", "type": "circle", "clicks": 0 }
+    ]
+  }
