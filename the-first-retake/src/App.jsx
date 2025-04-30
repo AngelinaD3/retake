@@ -1,69 +1,98 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import './App.css'
-import ShapesLine from './components/ShapesLine/ShapesLine.jsx';
-import { ShapesLineProvider } from './context/ShapesLineContext.jsx'
+import ShapesLine from './components/ShapesLine/ShapesLine.jsx'
+import Home from './pages/home/Home.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
+import StatsBar from '../StatsBar.jsx' // Fixed the import path
+import { useContext } from 'react'
+import { ShapesLineContext } from './context/ShapesLineContext.jsx'
 
-function HomePage() {
-  const [count, setCount] = useState(0)
+// Header component with navigation
+function Header() {
+  const location = useLocation()
+  
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>Edit <code>src/App.jsx</code> and save to test HMR</p>
-        <div style={{ marginTop: '2rem' }}>
-          <h2>Shapes Demo</h2>
-          <ShapesLine />
-          <ShapesLine isVertical />
-        </div>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <header className="app-header">
+      <nav className="main-navigation">
+        <Link 
+          to="/" 
+          className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+        >
+          Home
+        </Link>
+        <Link 
+          to="/horizontal" 
+          className={`nav-link ${location.pathname === '/horizontal' ? 'active' : ''}`}
+        >
+          Horizontal ShapesLine
+        </Link>
+        <Link 
+          to="/vertical" 
+          className={`nav-link ${location.pathname === '/vertical' ? 'active' : ''}`}
+        >
+          Vertical ShapesLine
+        </Link>
+      </nav>
+    </header>
   )
 }
 
-// Simple error page component
-function ErrorPage() {
+// Horizontal ShapesLine page
+function HorizontalShapesPage() {
+  const { clicks } = useContext(ShapesLineContext)
+  const [layoutDirection, setLayoutDirection] = useState('horizontal')
+
+  const toggleLayout = () => {
+    setLayoutDirection(prev => (prev === 'horizontal' ? 'vertical' : 'horizontal'))
+  }
+
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>404</h1>
-      <h2>Page Not Found</h2>
-      <p>The page you are looking for does not exist.</p>
-      <a href="/">Go back to home</a>
+    <div className="shapes-page">
+      <h2>Horizontal ShapesLine</h2>
+      <StatsBar onToggle={toggleLayout} />
+      <ShapesLine isVertical={layoutDirection === 'vertical'} />
     </div>
-  );
+  )
+}
+
+// Vertical ShapesLine page
+function VerticalShapesPage() {
+  const { clicks } = useContext(ShapesLineContext)
+  const [layoutDirection, setLayoutDirection] = useState('vertical')
+
+  const toggleLayout = () => {
+    setLayoutDirection(prev => (prev === 'horizontal' ? 'vertical' : 'horizontal'))
+  }
+
+  return (
+    <div className="shapes-page">
+      <h2>Vertical ShapesLine</h2>
+      <StatsBar onToggle={toggleLayout} />
+      <ShapesLine isVertical={layoutDirection === 'vertical'} />
+    </div>
+  )
 }
 
 function App() {
   return (
-    <ShapesLineProvider>
-      <Router>
+    <div className="app-container">
+      <Header />
+      
+      <main className="main-content">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/horizontal" element={<ShapesLine />} />
-          <Route path="/vertical" element={<ShapesLine isVertical />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/horizontal" element={<HorizontalShapesPage />} />
+          <Route path="/vertical" element={<VerticalShapesPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-      </Router>
-    </ShapesLineProvider>
+      </main>
+      
+      <footer className="app-footer">
+        <p>© 2025 ShapesLine App - Task 9 Complete</p>
+      </footer>
+    </div>
   )
 }
 
-export default App;
-
-//ss
+export default App

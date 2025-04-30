@@ -1,13 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
 import { ShapesLineProvider } from './context/ShapesLineContext.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <ShapesLineProvider>
-      <App />
-    </ShapesLineProvider>
-  </StrictMode>,
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <ShapesLineProvider>
+        <App />
+      </ShapesLineProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
 )
