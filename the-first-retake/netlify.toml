@@ -7,10 +7,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-# Redirect API requests to mock API for production (optional)
-# Uncomment if you want to use a serverless function to handle API requests
-# [[redirects]]
-#   from = "/api/*"
-#   to = "/.netlify/functions/:splat"
-#   status = 200
