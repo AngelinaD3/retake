@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply min-h-screen min-w-[320px];
+  }
+
+  h1 {
+    @apply text-5xl font-bold leading-tight;
+  }
+
+  button {
+    @apply rounded-lg border-transparent px-5 py-3 text-base font-medium transition-colors;
+  }
+
+  /* Кастомные анимации */
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+@layer components {
+  .custom-card {
+    @apply bg-base-100 shadow-lg hover:shadow-xl transition-shadow;
+  }
+}
+
+@layer utilities {
+  .clip-path-triangle {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+}
