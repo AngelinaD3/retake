@@ -22,55 +22,65 @@ const ShapesLine = ({ isVertical = false }) => {
   
   const shapesToDisplay = shapes?.length > 0 ? shapes : hardcodedShapes;
   
-  // Определяем анимацию для контейнера
+  // Контейнер для фигур: для горизонтального расположения используем flex-row с gap 100px,
+  // для вертикального – flex-col с gap 100px. Центрирование элементов.
+  const containerClasses = isVertical
+    ? "flex flex-col justify-center items-center gap-y-[100px] w-full h-full p-4"
+    : "flex flex-row justify-center items-center gap-x-[100px] w-full h-full p-4";
+  
+  // Анимационные варианты для контейнера и элементов (опционально)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
     }
   };
-  
-  // Определяем анимацию для отдельных элементов
+
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { scale: 1, opacity: 1 }
   };
   
   return (
-    <div className="card bg-base-100 shadow-xl m-4 overflow-hidden">
-      <div className="card-body">
+    <div className="card bg-base-100 shadow-xl m-4 overflow-hidden h-full">
+      <div className="card-body h-full">
         <h2 className="card-title text-primary">
-          {isVertical ? 'Вертикальное' : 'Горизонтальное'} расположение фигур
+          {isVertical ? 'Вертикальне' : 'Горизонтальне'} Розположення фігур
           <div className="badge badge-secondary">{shapesToDisplay.length}</div>
         </h2>
         
-        <motion.div 
-          className={`flex flex-wrap ${isVertical ? 'flex-col' : 'flex-row'} items-center gap-6 p-4 my-2 rounded-lg bg-base-200`}
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          {shapesToDisplay.map((shape) => (
-            <motion.div key={shape.id} variants={itemVariants}>
-              <div className="indicator">
-                {shape.clicks > 0 && (
-                  <span className="indicator-item badge badge-primary">{shape.clicks}</span>
-                )}
-                <Shape
-                  tfrColor={shape.color}
-                  tfrType={shape.type}
-                  onClick={() => handleClick(shape.id)}
-                />
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Дополнительный отступ между заголовком и контейнером фигур */}
+        <div className="mt-10">
+          <motion.div 
+            className={containerClasses}
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+          >
+            {shapesToDisplay.map((shape) => (
+              <motion.div 
+                key={shape.id} 
+                variants={itemVariants}
+                // Размер обёртки каждой фигуры – можно настроить по необходимости
+                className="w-[100px] h-[100px]"
+              >
+                <div className="indicator w-full h-full">
+                  {shape.clicks > 0 && (
+                    <span className="indicator-item badge badge-primary">{shape.clicks}</span>
+                  )}
+                  <Shape
+                    tfrColor={shape.color}
+                    tfrType={shape.type}
+                    onClick={() => handleClick(shape.id)}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
         
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-end mt-10">
           <div className="stats stats-vertical sm:stats-horizontal shadow bg-base-100 text-sm">
             {shapesToDisplay.map((shape) => (
               <div key={shape.id} className="stat place-items-center">
@@ -87,7 +97,7 @@ const ShapesLine = ({ isVertical = false }) => {
 };
 
 ShapesLine.propTypes = {
-  isVertical: PropTypes.bool
+  isVertical: PropTypes.bool,
 };
 
 export default ShapesLine;

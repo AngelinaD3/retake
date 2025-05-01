@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import ShapesLine from './components/ShapesLine/ShapesLine.jsx';
@@ -26,26 +26,27 @@ function HomePage() {
             <h1 className="text-5xl font-bold mb-6">Vite + React + DaisyUI</h1>
             <div className="card bg-base-100 shadow-xl max-w-md mx-auto">
               <div className="card-body">
-                <h2 className="card-title justify-center">Демонстрация интерактивности</h2>
+                <h2 className="card-title justify-center">Демонстрація інтерактивності</h2>
                 <div className="flex justify-center my-4">
                   <button 
                     onClick={() => setCount((count) => count + 1)}
                     className="btn btn-primary"
                   >
-                    Счетчик: {count}
+                    Лічильник: {count}
                   </button>
                 </div>
                 <p className="text-sm">
-                  Редактируйте <code className="bg-base-300 p-1 rounded">src/App.jsx</code> и сохраняйте для проверки HMR
+                  Редагуйте <code className="bg-base-300 p-1 rounded">src/App.jsx</code> та зберігайте для провірки HMR
                 </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="divider">Демонстрація фігур</div>
       
-      <div className="divider">Демонстрация фигур</div>
-      
+      {/* Здесь можно оставить статические примеры горизонтального та вертикального виду */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ShapesLine isVertical={false} />
         <ShapesLine isVertical={true} />
@@ -70,10 +71,40 @@ function ErrorPage() {
       <div className="hero-content text-center">
         <div className="max-w-md">
           <h1 className="text-9xl font-bold text-error">404</h1>
-          <h2 className="text-3xl font-bold mt-6">Страница не найдена</h2>
+          <h2 className="text-3xl font-bold mt-6">Сторінку не знайдено</h2>
           <p className="py-6">Запрашиваемая страница не существует или была перемещена.</p>
-          <a href="/" className="btn btn-primary">На главную</a>
+          <Link to="/" className="btn btn-primary">На Головну</Link>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Компонент для переключения вида фигур, встроенный прямо на главной странице
+function ToggleShapesView() {
+  const [isVertical, setIsVertical] = useState(false);
+  const toggleView = () => setIsVertical((prev) => !prev);
+
+  return (
+    <div className="my-8">
+      <div className="text-center mb-6">
+        <h2 className="text-3xl font-bold">
+          {isVertical ? "Вертикальне Розположення" : "Горизонтальне Розположення"}
+        </h2>
+        <p className="text-base-content/70">
+          {isVertical
+            ? "Фігури розташовані в стовпчик"
+            : "Фігури розташовані в рядок"}
+        </p>
+      </div>
+      <div className="flex justify-center mb-6">
+        <button onClick={toggleView} className="btn btn-primary">
+          Переключити вид: {isVertical ? "Вертикальний" : "Горизонтальний"}
+        </button>
+      </div>
+      {/* Контейнер з фіксованою висотою для демонстрації */}
+      <div className="h-[500px]">
+        <ShapesLine isVertical={isVertical} />
       </div>
     </div>
   );
@@ -92,8 +123,8 @@ function App() {
               <Route path="/horizontal" element={
                 <div className="my-8">
                   <div className="text-center mb-6">
-                    <h2 className="text-3xl font-bold">Горизонтальное расположение</h2>
-                    <p className="text-base-content/70">Фигуры расположены в строку</p>
+                    <h2 className="text-3xl font-bold">Горизонтальне Розположення</h2>
+                    <p className="text-base-content/70">Фігури в рядок</p>
                   </div>
                   <ShapesLine isVertical={false} />
                 </div>
@@ -101,33 +132,48 @@ function App() {
               <Route path="/vertical" element={
                 <div className="my-8">
                   <div className="text-center mb-6">
-                    <h2 className="text-3xl font-bold">Вертикальное расположение</h2>
-                    <p className="text-base-content/70">Фигуры расположены в столбец</p>
+                    <h2 className="text-3xl font-bold">Вертикальне Розположення</h2>
+                    <p className="text-base-content/70">Фігури в стовпчик</p>
                   </div>
                   <ShapesLine isVertical={true} />
                 </div>
               } />
+              {/* Добавляем маршрут для переключателя вида */}
+              <Route path="/toggle" element={<ToggleShapesView />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
-            
             <footer className="footer p-10 bg-base-200 text-base-content mt-12 rounded-lg">
               <div>
-                <span className="footer-title">Проект</span> 
-                <a className="link link-hover">О проекте</a>
-                <a className="link link-hover">Документация</a>
-                <a className="link link-hover">GitHub</a>
-              </div> 
+                <span className="footer-title">Проект</span>
+                <Link to="/about" className="link link-hover">Про проєкт</Link>
+                <Link to="/docs" className="link link-hover">Документація</Link>
+                <a href="https://github.com/AngelinaD3/retake" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="link link-hover">
+                  GitHub
+                </a>
+              </div>
               <div>
-                <span className="footer-title">Технологии</span> 
-                <a className="link link-hover">React</a>
-                <a className="link link-hover">DaisyUI</a>
-                <a className="link link-hover">Tailwind CSS</a>
-              </div> 
-              <div>
-                <span className="footer-title">Задачи проекта</span> 
-                <a className="link link-hover">Task 1-5</a>
-                <a className="link link-hover">Task 6-7</a>
-                <a className="link link-hover">Task 8-10</a>
+                <span className="footer-title">Технології</span>
+                <a href="https://reactjs.org" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="link link-hover">
+                  React
+                </a>
+                <a href="https://daisyui.com" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="link link-hover">
+                  DaisyUI
+                </a>
+                <a href="https://tailwindcss.com" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="link link-hover">
+                  Tailwind CSS
+                </a>
               </div>
             </footer>
           </div>

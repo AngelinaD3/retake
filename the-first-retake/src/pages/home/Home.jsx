@@ -15,10 +15,10 @@ const Home = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-4">
               <Link to="/horizontal" className="btn btn-primary">
-                Горизонтальний вигляд
+                Горизонтальний вид
               </Link>
               <Link to="/vertical" className="btn btn-secondary">
-                Вертикальний вигляд
+                Вертикальний вид
               </Link>
             </div>
           </div>
@@ -88,78 +88,6 @@ const Home = () => {
               Возможность переключения между горизонтальным и вертикальным режимами отображения
             </p>
           </div>
-        </div>
-      </div>
-
-      {/* Задачи проекта */}
-      <h2 className="text-3xl font-bold text-center mb-6">Задачи проекта</h2>
-      <div className="w-full max-w-4xl mb-8">
-        <div className="collapse collapse-arrow bg-base-200 mb-2">
-          <input type="checkbox" className="peer" /> 
-          <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-            Задачи 1-2: Создание базовых компонентов
-          </div>
-          <div className="collapse-content bg-base-100 text-left"> 
-            <ul className="list-disc list-inside space-y-2 p-4">
-              <li>Создание компоненты Shape с передачей цвета и типа через props</li>
-              <li>Создание компоненты ShapesLine для отображения набора фигур</li>
-              <li>Демонстрация горизонтальной и вертикальной реализации</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="collapse collapse-arrow bg-base-200 mb-2">
-          <input type="checkbox" className="peer" /> 
-          <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-            Задачи 3-4: Статистика и интерактивность
-          </div>
-          <div className="collapse-content bg-base-100 text-left"> 
-            <ul className="list-disc list-inside space-y-2 p-4">
-              <li>Отображение количества кликов по каждой фигуре</li>
-              <li>Создание компоненты StatsBar для статистики кликов</li>
-              <li>Реализация кнопки переключения вида ShapesLine</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="collapse collapse-arrow bg-base-200 mb-2">
-          <input type="checkbox" className="peer" /> 
-          <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-            Задачи 5-7: Маршрутизация и состояние
-          </div>
-          <div className="collapse-content bg-base-100 text-left"> 
-            <ul className="list-disc list-inside space-y-2 p-4">
-              <li>Создание компонент Home и ErrorPage</li>
-              <li>Реализация Header с навигационным меню</li>
-              <li>Подключение библиотеки react-router</li>
-              <li>Эффект "моргания" при клике на фигуру</li>
-              <li>Рефакторинг с использованием React Context API</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="collapse collapse-arrow bg-base-200 mb-2">
-          <input type="checkbox" className="peer" /> 
-          <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-            Задачи 8-10: API и публикация
-          </div>
-          <div className="collapse-content bg-base-100 text-left"> 
-            <ul className="list-disc list-inside space-y-2 p-4">
-              <li>Реализация API для управления статистикой</li>
-              <li>Публикация приложения на Netlify</li>
-              <li>Стилизация проекта с использованием DaisyUI</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Подвал */}
-      <div className="alert alert-info shadow-lg">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current flex-shrink-0 w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <span>Выберите режим отображения в меню выше для начала работы с приложением</span>
         </div>
       </div>
     </div>

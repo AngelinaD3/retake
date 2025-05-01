@@ -37,8 +37,8 @@ export const ShapesLineProvider = ({ children }) => {
   const updateShape = async (id, newData) => {
     try {
       // Обновляем UI немедленно
-      setShapes(prevShapes => 
-        prevShapes.map(shape => 
+      setShapes(prevShapes =>
+        prevShapes.map(shape =>
           shape.id === id ? { ...shape, ...newData } : shape
         )
       );
@@ -47,7 +47,7 @@ export const ShapesLineProvider = ({ children }) => {
       try {
         await axios.patch(`${API_URL}/${id}`, newData);
       } catch (err) {
-        // Игнорируем ошибки API - UI уже обновлен
+        // Игнорируем ошибки API — UI уже обновлен
       }
     } catch (error) {
       console.error("Failed to update shape:", error);
@@ -61,7 +61,7 @@ export const ShapesLineProvider = ({ children }) => {
     try {
       const response = await axios.post(API_URL, newShape);
       // Заменяем временную фигуру на полученную с сервера
-      setShapes(prev => 
+      setShapes(prev =>
         prev.map(shape => shape.id === tempShape.id ? response.data : shape)
       );
       return response.data;
@@ -71,15 +71,23 @@ export const ShapesLineProvider = ({ children }) => {
     }
   };
 
+  // Добавлена функция для удаления фигуры
+  const deleteShape = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      setShapes(prevShapes => prevShapes.filter(shape => shape.id !== id));
+    } catch (error) {
+      console.error("Failed to delete shape:", error);
+    }
+  };
+
   const toggleOrientation = () => {
     setOrientation(prev => prev === 'horizontal' ? 'vertical' : 'horizontal');
   };
 
   // Пробуем загрузить данные только один раз при монтировании
   useEffect(() => {
-    // Осторожно пробуем загрузить данные, но не критично если не получится
     fetchShapes().catch(() => {
-      // В случае ошибки просто используем стандартные данные
       console.log("Using default shapes data");
     });
   }, []);
@@ -92,6 +100,7 @@ export const ShapesLineProvider = ({ children }) => {
         error, 
         updateShape, 
         addShape,
+        deleteShape,
         refreshShapes: fetchShapes,
         orientation,
         toggleOrientation,
